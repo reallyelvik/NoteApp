@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Note App</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background-color: yellow;
+      }
+      .nav-dark {
+        background-color: black;
+        color: white;
+      }
+      .body-dark {
+        background-color: rgb(39, 39, 39);
+        color: white;
+      }
+      .btn-light {
+        background-color: white;
+        color: black;
+      }
+      nav > button {
+        padding: 0.2rem 0.4rem;
+        border: none;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+      }
+
+      .container {
+        display: inline-block;
+        position: relative;
+        margin: 1rem;
+        padding: 1rem;
+      }
+      .buttons {
+        position: absolute;
+        top: 0;
+        right: 20px;
+      }
+      .container button {
+        border: none;
+        border-radius: 50%;
+        padding: 0.4rem;
+        cursor: pointer;
+      }
+
+      .submit {
+        background-color: rgb(169, 255, 39);
+        transition: 0.2s background-color;
+      }
+      .submit:hover {
+        background-color: rgb(111, 185, 0);
+        transition: 0.2s background-color;
+      }
+      .delete {
+        background-color: yellow;
+        transition: 0.2s background-color;
+      }
+      .delete:hover {
+        background-color: rgb(180, 132, 39);
+        transition: 0.2s background-color;
+      }
+      .close {
+        background-color: rgb(255, 39, 39);
+        transition: 0.2s background-color;
+      }
+      .close:hover {
+        background-color: rgb(180, 0, 0);
+        transition: 0.2s background-color;
+      }
+      .container textarea {
+        resize: none;
+        border-radius: 20px;
+        padding: 1rem;
+        border: 3px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <h1>Note App</h1>
+      <button id="toggle">Toggle Mode</button>
+    </nav>
+    <div class="container">
+      <div class="buttons">
+        <button class="submit" id="submit">➕</button>
+        <button class="delete" id="delete">🗑️</button>
+        <button class="close" id="close">❌</button>
+      </div>
+      <textarea
+        name="txtArea"
+        id="txtArea"
+        cols="40"
+        rows="8"
+        placeholder="Enter Here"
+      ></textarea>
+    </div>
+    <div class="content" id="content"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
