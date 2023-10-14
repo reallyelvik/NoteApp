@@ -15,7 +15,6 @@ const addText = (note) => {
       <div class="container" data-id=${note?.id}>
     <div class="buttons">
       <button class="submit" id="submit">➕</button>
-      <button class="delete" id="delete">🗑️</button>
       <button class="close" id="close">❌</button>
     </div>
     <textarea
