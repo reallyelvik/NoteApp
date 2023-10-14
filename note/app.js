@@ -85,9 +85,18 @@ contentDiv.addEventListener("click", (event) => {
       if (notes[i].id === id) {
         notes[i].text = target.parentElement.parentElement.querySelector("textarea").value;
         localStorage.setItem("notes", JSON.stringify(notes));
+        target.innerHTML = `
+        <p style='padding:0 4px; position:relative; color:gray;font-weight: bold'>✔</p>
+        <p style="position: absolute; top:-25px; right: 20; font-weight:bold; color:gray;">Updated</p>
+        `
+
+
         break;
       }
     }
+    setTimeout(() => {
+      target.innerHTML = "➕";
+    }, 1000);
   }
 });
 
