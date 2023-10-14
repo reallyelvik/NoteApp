@@ -6,23 +6,38 @@ const deleteTxt = document.getElementById("delete");
 const closeTxt = document.getElementById("close");
 const txtArea = document.querySelector("textarea");
 
+const notes = JSON.parse(localStorage.getItem("notes")) || [];
+
 const contentDiv = document.getElementById("content");
 
-const addText = `<div class="container">
-<div class="buttons">
-  <button class="submit" id="submit">➕</button>
-  <button class="delete" id="delete">🗑️</button>
-  <button class="close" id="close">❌</button>
-</div>
-<textarea
-  name="txtArea"
-  id="txtArea"
-  cols="40"
-  rows="8"
-  placeholder="Enter Here"
-></textarea>
-</div>`;
-
+const addText = (note) => {
+  return `
+      <div class="container">
+    <div class="buttons">
+      <button class="submit" id="submit">➕</button>
+      <button class="delete" id="delete">🗑️</button>
+      <button class="close" id="close">❌</button>
+    </div>
+    <textarea
+      name="txtArea"
+      id="txtArea"
+      cols="40"
+      rows="8"
+      placeholder="Enter Here"
+    >
+      ${note.text}
+    </textarea>
+    </div>;
+  `;
+};
+//fill note from local storage and add new note
+const noteAdd = ()=>{
+  let noteHtml = "";
+  notes.map((note)=>{
+    noteHtml += addText(note);
+  })
+  contentDiv.innerHTML = noteHtml;
+}
 const navBar = document.querySelector("nav");
 let darkMode = false;
 
@@ -38,11 +53,17 @@ deleteTxt.addEventListener("click", () => {
 });
 
 closeTxt.addEventListener("click", () => {
+
   container.remove();
 });
 
 submitTxt.addEventListener("click", () => {
-  contentDiv.insertAdjacentHTML("beforeend", addText);
+  // contentDiv.insertAdjacentHTML("beforeend", addText);
+  let notetext = txtArea.value;
+  let note = { id: notes.length + 1, text: notetext };
+  notes.push(note);
+  localStorage.setItem("notes", JSON.stringify(notes));
+  noteAdd()
 });
 
 contentDiv.addEventListener("click", (event) => {
@@ -55,3 +76,5 @@ contentDiv.addEventListener("click", (event) => {
     contentDiv.insertAdjacentHTML("beforeend", addText);
   }
 });
+
+noteAdd()
