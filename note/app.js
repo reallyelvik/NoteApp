@@ -6,13 +6,13 @@ const deleteTxt = document.getElementById("delete");
 const closeTxt = document.getElementById("close");
 const txtArea = document.querySelector("textarea");
 
-const notes = JSON.parse(localStorage.getItem("notes")) || [];
+let notes = JSON.parse(localStorage.getItem("notes")) || [];
 
 const contentDiv = document.getElementById("content");
 
 const addText = (note) => {
   return `
-      <div class="container">
+      <div class="container" data-id=${note?.id}>
     <div class="buttons">
       <button class="submit" id="submit">➕</button>
       <button class="delete" id="delete">🗑️</button>
@@ -25,17 +25,18 @@ const addText = (note) => {
       rows="8"
       placeholder="Enter Here"
     >
-      ${note.text}
+      ${note?.text}
     </textarea>
     </div>;
   `;
 };
+// localStorage.removeItem("notes");
 //fill note from local storage and add new note
 const noteAdd = ()=>{
   let noteHtml = "";
   notes.map((note)=>{
     noteHtml += addText(note);
-  })
+  }).join("");
   contentDiv.innerHTML = noteHtml;
 }
 const navBar = document.querySelector("nav");
@@ -58,7 +59,6 @@ closeTxt.addEventListener("click", () => {
 });
 
 submitTxt.addEventListener("click", () => {
-  // contentDiv.insertAdjacentHTML("beforeend", addText);
   let notetext = txtArea.value;
   let note = { id: notes.length + 1, text: notetext };
   notes.push(note);
@@ -71,7 +71,15 @@ contentDiv.addEventListener("click", (event) => {
   if (target.classList.contains("delete")) {
     target.parentElement.parentElement.remove();
   } else if (target.classList.contains("close")) {
-    target.parentElement.parentElement.remove();
+    const id = Number(event.target.parentElement.parentElement.dataset.id)
+    for (let i = 0; i < notes.length; i++) {
+      if (notes[i].id === id) {
+          notes.splice(i, 1);
+          break;
+      }
+  }
+   localStorage.setItem("notes", JSON.stringify(notes));
+    noteAdd()
   } else if (target.classList.contains("submit")) {
     contentDiv.insertAdjacentHTML("beforeend", addText);
   }
