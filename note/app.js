@@ -63,6 +63,7 @@ submitTxt.addEventListener("click", () => {
   let note = { id: notes.length + 1, text: notetext };
   notes.push(note);
   localStorage.setItem("notes", JSON.stringify(notes));
+  txtArea.value = "";
   noteAdd()
 });
 
@@ -81,7 +82,14 @@ contentDiv.addEventListener("click", (event) => {
    localStorage.setItem("notes", JSON.stringify(notes));
     noteAdd()
   } else if (target.classList.contains("submit")) {
-    contentDiv.insertAdjacentHTML("beforeend", addText);
+    const id = Number(event.target.parentElement.parentElement.dataset.id)
+    for (let i = 0; i < notes.length; i++) {
+      if (notes[i].id === id) {
+        notes[i].text = target.parentElement.parentElement.querySelector("textarea").value;
+        localStorage.setItem("notes", JSON.stringify(notes));
+        break;
+      }
+    }
   }
 });
 
