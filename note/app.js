@@ -27,17 +27,16 @@ const addText = (note) => {
     >
       ${note?.text}
     </textarea>
-    </div>;
-  `;
+    </div>
+  `
 };
 // localStorage.removeItem("notes");
 //fill note from local storage and add new note
 const noteAdd = ()=>{
-  let noteHtml = "";
-  notes.map((note)=>{
-    noteHtml += addText(note);
-  }).join("");
-  contentDiv.innerHTML = noteHtml;
+ let noteHTML =  notes.map((note)=>{
+    return addText(note);
+  }).join(" ")
+  contentDiv.innerHTML = noteHTML
 }
 const navBar = document.querySelector("nav");
 let darkMode = false;
@@ -54,7 +53,6 @@ deleteTxt.addEventListener("click", () => {
 });
 
 closeTxt.addEventListener("click", () => {
-
   container.remove();
 });
 
