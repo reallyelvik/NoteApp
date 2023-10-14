@@ -30,7 +30,14 @@ const addText = (note) => {
     </div>;
   `;
 };
-
+//fill note from local storage and add new note
+const noteAdd = ()=>{
+  let noteHtml = "";
+  notes.map((note)=>{
+    noteHtml += addText(note);
+  })
+  contentDiv.innerHTML = noteHtml;
+}
 const navBar = document.querySelector("nav");
 let darkMode = false;
 
@@ -46,6 +53,7 @@ deleteTxt.addEventListener("click", () => {
 });
 
 closeTxt.addEventListener("click", () => {
+
   container.remove();
 });
 
@@ -54,9 +62,8 @@ submitTxt.addEventListener("click", () => {
   let notetext = txtArea.value;
   let note = { id: notes.length + 1, text: notetext };
   notes.push(note);
-  console.log(notes);
   localStorage.setItem("notes", JSON.stringify(notes));
-  addText(note);
+  noteAdd()
 });
 
 contentDiv.addEventListener("click", (event) => {
@@ -69,3 +76,5 @@ contentDiv.addEventListener("click", (event) => {
     contentDiv.insertAdjacentHTML("beforeend", addText);
   }
 });
+
+noteAdd()
