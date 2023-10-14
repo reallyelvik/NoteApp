@@ -27,17 +27,16 @@ const addText = (note) => {
     >
       ${note?.text}
     </textarea>
-    </div>;
-  `;
+    </div>
+  `
 };
 // localStorage.removeItem("notes");
 //fill note from local storage and add new note
 const noteAdd = ()=>{
-  let noteHtml = "";
-  notes.map((note)=>{
-    noteHtml += addText(note);
-  }).join("");
-  contentDiv.innerHTML = noteHtml;
+ let noteHTML =  notes.map((note)=>{
+    return addText(note);
+  }).join(" ")
+  contentDiv.innerHTML = noteHTML
 }
 const navBar = document.querySelector("nav");
 let darkMode = false;
@@ -54,7 +53,6 @@ deleteTxt.addEventListener("click", () => {
 });
 
 closeTxt.addEventListener("click", () => {
-
   container.remove();
 });
 
@@ -87,9 +85,18 @@ contentDiv.addEventListener("click", (event) => {
       if (notes[i].id === id) {
         notes[i].text = target.parentElement.parentElement.querySelector("textarea").value;
         localStorage.setItem("notes", JSON.stringify(notes));
+        target.innerHTML = `
+        <p style='padding:0 4px; position:relative; color:gray;font-weight: bold'>✔</p>
+        <p style="position: absolute; top:-25px; right: 20; font-weight:bold; color:gray;">Updated</p>
+        `
+
+
         break;
       }
     }
+    setTimeout(() => {
+      target.innerHTML = "➕";
+    }, 1000);
   }
 });
 
